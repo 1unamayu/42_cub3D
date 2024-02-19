@@ -5,33 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 14:29:34 by xamayuel          #+#    #+#             */
-/*   Updated: 2024/02/18 21:52:41 by javi             ###   ########.fr       */
+/*   Created: 2024/02/19 11:55:43 by xamayuel          #+#    #+#             */
+/*   Updated: 2024/02/19 14:37:05 by xamayuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE3D_H
 # define CUBE3D_H
 
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include "libft.h"
-
-# define VERSION "0.1.0"
-/************************** FOREGROUND COLORS *********************************/
-# define KNRM  "\x1B[0m"
-# define KRED  "\x1B[31m"
-# define KGRN  "\x1B[32m"
-# define KYEL  "\x1B[33m"
-# define KBLU  "\x1B[34m"
-# define KMAG  "\x1B[35m"
-# define KCYN  "\x1B[36m"
-# define KWHT   "\x1B[37m"
-# define KNON   "\033[0m"
-# define KBLA   "\x1b[40m"
-/******************************************************************************/
-// checks
+# include "map.h"
+# include "get_next_line.h"
+# include "parser.h"
 int	ft_is_valid_input_file(char *arguments[]);
 int ft_is_valid_map(const char *filename);
 int	ft_is_valid_line(int position, const char *line, int n_lines);

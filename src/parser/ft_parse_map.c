@@ -6,13 +6,13 @@
 /*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:50:26 by xamayuel          #+#    #+#             */
-/*   Updated: 2024/02/19 14:14:42 by xamayuel         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:36:26 by xamayuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void ft_parse_map()
+void    ft_parse_map()
 {
     printf("\nParsing map");
 }

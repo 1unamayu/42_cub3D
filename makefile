@@ -6,7 +6,7 @@
 #    By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/17 14:24:44 by xamayuel          #+#    #+#              #
-#    Updated: 2024/02/19 14:10:47 by xamayuel         ###   ########.fr        #
+#    Updated: 2024/02/19 15:11:06 by javi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,9 +26,9 @@ MAP_DIR = src/map
 GNL_DIR = src/gnl
 PARSER_DIR = src/parser
 LIBFT = $(LIBRARIES_DIR)/libft.a
-MAP = $(LIBRARIES_DIR)/map.a
-GNL = $(LIBRARIES_DIR)/gnl.a
-PARSER = $(LIBRARIES_DIR)/parser.a
+#MAP = $(LIBRARIES_DIR)/map.a
+#GNL = $(LIBRARIES_DIR)/gnl.a
+#PARSER = $(LIBRARIES_DIR)/parser.a
 # ------------- COLORS 
 # https://talyian.github.io/ansicolors/
 RESET			= 	\033[0m
