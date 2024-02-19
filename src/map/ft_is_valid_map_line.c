@@ -14,12 +14,13 @@
 
 int	ft_is_valid_map_line(int position, const char *line, int nlines)
 {
-	if (position == 7 && ft_is_valid_first_map_line(line) == FALSE)
+	if (position == 7 && ft_line_has_only_1(line) == FALSE)
 		return (ft_show_error("Invalid first map line.\n"));
 	if (position > 7 && position < nlines && \
-						ft_is_valid_inter_map_line(line) == FALSE)
-		return (ft_show_error("Invalid inter map line.\n"));
-	if (position == nlines && ft_is_valid_first_map_line(line) == FALSE)
+						ft_line_has_only_6(line) == FALSE)
+						{ printf("Linea:%s", line);
+		return (ft_show_error("Invalid inter map line.\n"));}
+	if (position == nlines && ft_line_has_only_1(line) == FALSE)
 		return (ft_show_error("Invalid last map line.\n"));
 	return (TRUE);
 }
@@ -29,7 +30,7 @@ int	ft_line_has_only_6(const char *str)
 	while (*str)
 	{
 		if (*str != '0' && *str != 'N' && *str != 'S' && *str != 'W' \
-			&& *str != 'E' && *str != '1' && *str != ' ' && *str != '\n')
+			&& *str != 'E' && *str != '1' && (!(ft_isspace(*str))))
 		{
 			return (FALSE);
 		}
@@ -42,13 +43,13 @@ int	ft_line_has_only_1(const char *str)
 {
 	while (*str)
 	{
-		if (*str != '1' && *str != ' ' && *str != '\n')
+		if (*str != '1' && (!ft_isspace(*str)))
 			return (FALSE);
 		str++;
 	}
 	return (TRUE);
 }
-
+/*
 int	ft_is_valid_first_map_line(const char *line)
 {
 	char	*map_line;
@@ -74,3 +75,4 @@ int	ft_is_valid_inter_map_line(const char *line)
 	free(map_line);
 	return (TRUE);
 }
+*/
