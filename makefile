@@ -6,7 +6,7 @@
 #    By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/17 14:24:44 by xamayuel          #+#    #+#              #
-#    Updated: 2024/02/19 15:36:03 by javi             ###   ########.fr        #
+#    Updated: 2024/02/19 23:42:35 by javi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 # - libraries --> folder with library files *.a
 # - includes --> folder with *.h files
 # **************************************************************************** #
-NAME = cube3d
+NAME = cub3d
 SRC_DIR = src
 OBJ_DIR = .objs
 LIBRARIES_DIR = libraries
@@ -29,6 +29,7 @@ LIBFT = $(LIBRARIES_DIR)/libft.a
 MAP = $(LIBRARIES_DIR)/map.a
 GNL = $(LIBRARIES_DIR)/gnl.a
 PARSER = $(LIBRARIES_DIR)/parser.a
+MLX42 = mlx
 # ------------- COLORS 
 # https://talyian.github.io/ansicolors/
 RESET			= 	\033[0m
@@ -57,6 +58,11 @@ LFLAGS = -L . $(LIBFT) \
 		 -L . $(GNL) \
 		 -L . $(MAP)\
 		 -L . $(PARSER)
+MLXFLAGS = -framework Cocoa -framework OpenGL -framework IOKit
+MLXINC = $(MLX42)/libmlx42.a -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/"\
+		 -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+
+
 
 # Address sanitizing flags
 ASAN := -fsanitize=address -fsanitize-recover=address
@@ -81,7 +87,7 @@ $(NAME): $(OBJ) libraries libft gnl map parser
 		#$(CC) $(OBJ) $(HEAD) $(CFLAGS) $(LFLAGS) $(ASAN) -o $(NAME)
 		clear
 		@echo "$(LIGHT_PINK)╔════════════════════════════════════╗"
-		@echo "$(LIGHT_PINK)║${PINK} 🎮🎮🎮🐶 CUBE3D COMPLETE 🐶🎮🎮🎮  ║"
+		@echo "$(LIGHT_PINK)║${PINK} 🎮🎮🎮🐶 CUB3D COMPLETE 🐶🎮🎮🎮  ║"
 		@echo "$(LIGHT_PINK)╚════════════════════════════════════╝ $(RESET)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
