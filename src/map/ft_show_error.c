@@ -6,11 +6,11 @@
 /*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 11:27:35 by xamayuel          #+#    #+#             */
-/*   Updated: 2024/02/18 14:50:52 by xamayuel         ###   ########.fr       */
+/*   Updated: 2024/02/19 12:17:52 by xamayuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "map.h"
 
 /**
  * @brief Prints an error message to the console in a formatted way.
@@ -25,8 +25,8 @@
  */
 int	ft_show_error(const char *error_text)
 {
-	printf(KRED"Error\n");
-	printf(KWHT"CUBE3D:");
+	ft_putstr_fd(KRED"Error\n", 2);
+	ft_putstr_fd(KWHT"CUBE3D:", 2);
 	printf("%s \n", error_text);
 	return (FALSE);
 }

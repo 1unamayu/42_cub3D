@@ -6,11 +6,11 @@
 /*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 16:06:34 by xamayuel          #+#    #+#             */
-/*   Updated: 2024/02/18 14:57:02 by xamayuel         ###   ########.fr       */
+/*   Updated: 2024/02/19 13:47:19 by xamayuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "map.h"
 
 static int	ft_check_lines(const char *filename, int nlines);
 static int	ft_count_directions(const char *line, char caracter);

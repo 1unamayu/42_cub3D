@@ -6,11 +6,11 @@
 /*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 11:10:49 by xamayuel          #+#    #+#             */
-/*   Updated: 2024/02/18 14:20:41 by xamayuel         ###   ########.fr       */
+/*   Updated: 2024/02/19 13:47:44 by xamayuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "map.h"
 
 /**
  * @brief Validates a line within a configuration file based
@@ -48,7 +48,7 @@ int	ft_is_valid_line(int position, const char *line, int n_lines)
 		return (FALSE);
 	if (position == 6 && ft_is_color_line("C", line) == FALSE)
 		return (FALSE);
-	if (position > 6 && ft_is_valid_map_line(position,line, n_lines) == FALSE)
+	if (position > 6 && ft_is_valid_map_line(position, line, n_lines) == FALSE)
 		return (FALSE);
 	return (TRUE);
 }

@@ -6,11 +6,11 @@
 /*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 11:38:58 by xamayuel          #+#    #+#             */
-/*   Updated: 2024/02/18 14:48:22 by xamayuel         ###   ########.fr       */
+/*   Updated: 2024/02/19 11:54:53 by xamayuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "map.h"
 
 /**
  * @brief Validates a line representing a texture specification.

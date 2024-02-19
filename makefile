@@ -6,7 +6,7 @@
 #    By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/17 14:24:44 by xamayuel          #+#    #+#              #
-#    Updated: 2024/02/18 14:07:02 by xamayuel         ###   ########.fr        #
+#    Updated: 2024/02/19 14:10:47 by xamayuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,13 @@ SRC_DIR = src
 OBJ_DIR = .objs
 LIBRARIES_DIR = libraries
 LIBFT_DIR = src/libft
-LEXER_DIR = src/lexer
+MAP_DIR = src/map
+GNL_DIR = src/gnl
+PARSER_DIR = src/parser
 LIBFT = $(LIBRARIES_DIR)/libft.a
+MAP = $(LIBRARIES_DIR)/map.a
+GNL = $(LIBRARIES_DIR)/gnl.a
+PARSER = $(LIBRARIES_DIR)/parser.a
 # ------------- COLORS 
 # https://talyian.github.io/ansicolors/
 RESET			= 	\033[0m
@@ -38,23 +43,20 @@ BLUE			= 	\033[38;5;39m
 DARK_BLUE		=   \033[38;5;57m
 # -----------------SRC
 SRC =	$(SRC_DIR)/main.c \
-		$(SRC_DIR)/ft_is_valid_input_file.c \
-		$(SRC_DIR)/ft_is_valid_map.c\
-		$(SRC_DIR)/ft_is_valid_line.c\
-		$(SRC_DIR)/ft_is_valid_texture_line.c\
-		$(SRC_DIR)/ft_is_valid_map_line.c\
-		$(SRC_DIR)/ft_is_valid_color_line.c\
-		$(SRC_DIR)/ft_show_error.c\
-		$(SRC_DIR)/file_utils.c
+		$(SRC_DIR)/ft_is_valid_input_file.c
+
 OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
 
 CC = gcc
 
 HEAD = -I./includes \
-	   -I./$(LIBFT_DIR) 
+	   -I./$(LIBFT_DIR) \
 
 CFLAGS = -Wall -Werror -Wextra #-g -fsanitize=address
-LFLAGS = -L . $(LIBFT) 
+LFLAGS = -L . $(LIBFT) \
+		 -L . $(GNL) \
+		 -L . $(MAP)\
+		 -L . $(PARSER)
 
 # Address sanitizing flags
 ASAN := -fsanitize=address -fsanitize-recover=address
@@ -73,7 +75,7 @@ RM = /bin/rm -rf
 all: $(NAME)
 bonus: all
 
-$(NAME): $(OBJ) libraries libft 
+$(NAME): $(OBJ) libraries libft gnl map parser
 		
 		$(CC) $(OBJ) $(HEAD) $(CFLAGS) $(LFLAGS)  -o $(NAME)
 		#$(CC) $(OBJ) $(HEAD) $(CFLAGS) $(LFLAGS) $(ASAN) -o $(NAME)
@@ -94,6 +96,12 @@ libraries:
 libft:
 		@make -C $(LIBFT_DIR)
 
+map:
+		@make -C $(MAP_DIR)
+gnl:
+		@make -C $(GNL_DIR)	
+parser:
+		@make -C $(PARSER_DIR)	
 clean:
 		@$(RM) $(OBJ_DIR)
 		sleep .1
@@ -110,7 +118,7 @@ fclean: clean
 
 re: fclean all
 
-.PONY: all clean fclean re debug_mac debug_linux
+.PONY: all clean fclean re 
 
 installation: 
 		@echo "$(BLUE)╔════════════════════════════════════╗"

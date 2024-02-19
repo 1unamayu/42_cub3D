@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/22 17:48:15 by xamayuel          #+#    #+#             */
-/*   Updated: 2024/02/19 12:17:57 by xamayuel         ###   ########.fr       */
+/*   Created: 2024/02/19 13:53:41 by xamayuel          #+#    #+#             */
+/*   Updated: 2024/02/19 13:59:28 by xamayuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PARSE_H
+# define PARSE_H
 
-/**
- * NAME: ft_putstr_c()
- * 
- * DESCRIPTION:
- * 		Writes the string in the file defined by the file descriptor
- * 
- * PARAMS:
- * 		@param  s: string to be written.
- * 		@param fd: file descriptor.
- * 
- * RETURN:
- * 		Nothing.
- */
+# include "libft.h"
+# include "get_next_line.h"
 
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (s)
-		write(fd, s, ft_strlen(s));
-}
+void ft_parse_map();
+#endif

@@ -6,13 +6,13 @@
 /*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 14:05:50 by xamayuel          #+#    #+#             */
-/*   Updated: 2024/02/18 14:40:39 by xamayuel         ###   ########.fr       */
+/*   Updated: 2024/02/19 12:19:26 by xamayuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "map.h"
 
-static int	ft_is_color_argument(char *argument);
+static int	ft_is_color_element(char *argument);
 
 /**
  * @brief Validates a line representing a color specification.
@@ -37,7 +37,7 @@ static int	ft_is_color_argument(char *argument);
  *      Verifies that the first argument is a single-character string 
  *      and matches the expected `type`.
  * 3. **RGB values:**
- *      Calls `ft_is_color_argument` to validate the format
+ *      Calls `ft_is_color_element` to validate the format
  *  	and range of the comma-separated RGB values.
  *
  * If all checks pass, the function returns `TRUE`.
@@ -65,7 +65,7 @@ int	ft_is_color_line(const char *type, const char *line)
 		free(data);
 		return (ft_show_error("Error in color line"));
 	}
-	if (ft_is_color_argument(data[1]) == FALSE)
+	if (ft_is_color_element(data[1]) == FALSE)
 	{
 		free(data);
 		return (ft_show_error("Error in color line"));
@@ -87,7 +87,7 @@ int	ft_is_color_line(const char *type, const char *line)
  * @return `TRUE` if the string is a valid RGB color representation,
  *         `FALSE` otherwise.
  */
-static int	ft_is_color_argument(char *argument)
+static int	ft_is_color_element(char *argument)
 {
 	char	**data;
 	int		i;

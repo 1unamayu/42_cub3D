@@ -6,7 +6,7 @@
 /*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 18:01:35 by xamayuel          #+#    #+#             */
-/*   Updated: 2024/02/17 23:56:08 by xamayuel         ###   ########.fr       */
+/*   Updated: 2024/02/19 12:27:35 by xamayuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LIBFT_H
 # include <stdlib.h>
 # include <unistd.h>
-# include "get_next_line.h"
+
 # define TRUE 1
 # define FALSE 0
 
