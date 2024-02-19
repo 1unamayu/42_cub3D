@@ -6,7 +6,7 @@
 /*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:45:06 by xamayuel          #+#    #+#             */
-/*   Updated: 2024/02/18 21:55:46 by javi             ###   ########.fr       */
+/*   Updated: 2024/02/19 10:09:36 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argn, char *argv[])
 {
 	if (argn != 2)
 	{
-		printf(KRED"Error\n"KWHT"CUBE3D:\				Incorrect number of arguments."KNRM"\n");
+		printf(KRED"Error\n"KWHT"CUBE3D: Incorrect number of arguments."KNRM"\n");
 		printf(KBLU"CUBE3D: Usage ./cube3d <mapfile.cub>");
 				}
 	else if (ft_is_valid_input_file(argv) == TRUE)

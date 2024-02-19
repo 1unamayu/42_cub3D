@@ -38,9 +38,11 @@ int	ft_is_valid_line(int position, const char *line, int n_lines);
 int	ft_is_valid_texture_line(const char *direction, const char *line);
 int ft_is_color_line(const char *type, const char *line);
 int	ft_is_valid_map_line(int position, const char *line, int nlines);
-int ft_is_valid_first_map_line(const char *line);
+/*int ft_is_valid_first_map_line(const char *line);
 int ft_is_valid_inter_map_line(const char *line);
-int ft_is_valid_last_map_line(const char *line);
+int ft_is_valid_last_map_line(const char *line);*/
+int	ft_line_has_only_6(const char *str);
+int	ft_line_has_only_1(const char *str);
 //utils
 int	ft_is_valid_filename(const char *filename);
 int	ft_count_files(const char *filename);

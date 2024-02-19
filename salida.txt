@@ -1,0 +1,7 @@
+[34m
+Loading maps/cub.cub ...
+[0m[31mError
+[37mCUBE3D:Incorrect map line. 
+[31mError
+[37mCUBE3D:Invalid inter map line.
+ 

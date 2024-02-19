@@ -59,6 +59,8 @@ static int	ft_check_lines(const char *filename, int nlines)
 	int		count;
 
 	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		ft_show_error("Error.\n File not opening");
 	pos = 1;
 	line = get_next_line(fd);
 	count = 0;
