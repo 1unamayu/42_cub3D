@@ -6,7 +6,7 @@
 /*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:29:34 by xamayuel          #+#    #+#             */
-/*   Updated: 2024/02/18 14:09:51 by xamayuel         ###   ########.fr       */
+/*   Updated: 2024/02/18 21:52:41 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int ft_is_valid_map(const char *filename);
 int	ft_is_valid_line(int position, const char *line, int n_lines);
 int	ft_is_valid_texture_line(const char *direction, const char *line);
 int ft_is_color_line(const char *type, const char *line);
-int	ft_is_valid_texture_line(const char *direction, const char *line);
 int	ft_is_valid_map_line(int position, const char *line, int nlines);
 int ft_is_valid_first_map_line(const char *line);
 int ft_is_valid_inter_map_line(const char *line);
