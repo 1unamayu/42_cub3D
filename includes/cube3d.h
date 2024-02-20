@@ -16,6 +16,9 @@
 # include "map.h"
 # include "get_next_line.h"
 # include "parser.h"
+# include "game.h"
+# include "game_struct.h"
+
 int	ft_is_valid_input_file(char *arguments[]);
 int ft_is_valid_map(const char *filename);
 int	ft_is_valid_line(int position, const char *line, int n_lines);

@@ -6,7 +6,7 @@
 #    By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/17 14:24:44 by xamayuel          #+#    #+#              #
-#    Updated: 2024/02/19 23:42:35 by javi             ###   ########.fr        #
+#    Updated: 2024/02/20 18:11:33 by javi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,17 @@ SRC_DIR = src
 OBJ_DIR = .objs
 LIBRARIES_DIR = libraries
 LIBFT_DIR = src/libft
+MLX_DIR = src/minilibx
 MAP_DIR = src/map
 GNL_DIR = src/gnl
 PARSER_DIR = src/parser
+GAME_DIR = src/game
 LIBFT = $(LIBRARIES_DIR)/libft.a
 MAP = $(LIBRARIES_DIR)/map.a
 GNL = $(LIBRARIES_DIR)/gnl.a
 PARSER = $(LIBRARIES_DIR)/parser.a
-MLX42 = mlx
+GAME = $(LIBRARIES_DIR)/game.a
+MLX = $(MLX_DIR)/libmlx.a
 # ------------- COLORS 
 # https://talyian.github.io/ansicolors/
 RESET			= 	\033[0m
@@ -57,12 +60,9 @@ CFLAGS = -Wall -Werror -Wextra #-g -fsanitize=address
 LFLAGS = -L . $(LIBFT) \
 		 -L . $(GNL) \
 		 -L . $(MAP)\
-		 -L . $(PARSER)
-MLXFLAGS = -framework Cocoa -framework OpenGL -framework IOKit
-MLXINC = $(MLX42)/libmlx42.a -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/"\
-		 -L"/Users/$(USER)/.brew/opt/glfw/lib/"
-
-
+		 -L . $(PARSER) \
+		 -L . $(GAME) \
+		 -L . $(MLX) -framework OpenGL -framework AppKit
 
 # Address sanitizing flags
 ASAN := -fsanitize=address -fsanitize-recover=address
@@ -81,9 +81,9 @@ RM = /bin/rm -rf
 all: $(NAME)
 bonus: all
 
-$(NAME): $(OBJ) libraries libft gnl map parser
+$(NAME): $(OBJ) libraries libft gnl game map parser mlx
 		
-		$(CC) $(OBJ) $(HEAD) $(CFLAGS) $(LFLAGS)  -o $(NAME)
+		$(CC) $(OBJ) $(HEAD) $(CFLAGS) $(LFLAGS) -o $(NAME)
 		#$(CC) $(OBJ) $(HEAD) $(CFLAGS) $(LFLAGS) $(ASAN) -o $(NAME)
 		clear
 		@echo "$(LIGHT_PINK)╔════════════════════════════════════╗"
@@ -107,7 +107,11 @@ map:
 gnl:
 		@make -C $(GNL_DIR)	
 parser:
-		@make -C $(PARSER_DIR)	
+		@make -C $(PARSER_DIR)
+game:
+		@make -C $(GAME_DIR)
+mlx:	
+		@make -C $(MLX_DIR)	
 clean:
 		@$(RM) $(OBJ_DIR)
 		sleep .1
