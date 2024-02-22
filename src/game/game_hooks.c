@@ -12,73 +12,73 @@
 
 #include "game.h"
 
-void	ft_scale(int key, t_fdfdata *fdata)
+void	ft_scale(int key, t_gamedata *gdata)
 {
 	if (key == 69 || key == 24 || key == 4)
 	{
-		fdata->hookmods.scale++;
+		gdata->hookmods.scale++;
 	}
 	else if (key == 78 || key == 27 || key == 5)
-		fdata->hookmods.scale--;
-	if (fdata->hookmods.scale < 1)
-		fdata->hookmods.scale = 1;
-	ft_start_draw(fdata);
+		gdata->hookmods.scale--;
+	if (gdata->hookmods.scale < 1)
+		gdata->hookmods.scale = 1;
+	ft_start_draw(gdata);
 }
 
-void	ft_axis_displ(int key, t_fdfdata *fdata)
+void	ft_axis_displ(int key, t_gamedata *gdata)
 {
 	if (key == 123)
-		fdata->hookmods.xdispl -= 10;
+		gdata->hookmods.xdispl -= 10;
 	else if (key == 124)
-		fdata->hookmods.xdispl += 10;
+		gdata->hookmods.xdispl += 10;
 	else if (key == 125)
-		fdata->hookmods.ydispl += 10;
+		gdata->hookmods.ydispl += 10;
 	else
-		fdata->hookmods.ydispl -= 10;
-	ft_start_draw(fdata);
+		gdata->hookmods.ydispl -= 10;
+	ft_start_draw(gdata);
 }
 
-void	ft_rotate_view(int key, t_fdfdata *fdata)
+void	ft_rotate_view(int key, t_gamedata *gdata)
 {
 	if (key == 14)
-		fdata->hookmods.z_angle += 0.05;
+		gdata->hookmods.z_angle += 0.05;
 	if (key == 2)
-		fdata->hookmods.z_angle -= 0.05;
+		gdata->hookmods.z_angle -= 0.05;
 	if (key == 12)
-		fdata->hookmods.x_angle -= 0.05;
+		gdata->hookmods.x_angle -= 0.05;
 	if (key == 0)
-		fdata->hookmods.x_angle += 0.05;
+		gdata->hookmods.x_angle += 0.05;
 	if (key == 13)
-		fdata->hookmods.y_angle += 0.05;
+		gdata->hookmods.y_angle += 0.05;
 	if (key == 1)
-		fdata->hookmods.y_angle -= 0.05;
-	ft_start_draw(fdata);
+		gdata->hookmods.y_angle -= 0.05;
+	ft_start_draw(gdata);
 }
 
-void	ft_change_height(int key, t_fdfdata *fdata)
+void	ft_change_height(int key, t_gamedata *gdata)
 {
 	if (key == 6)
-		fdata->hookmods.z_height -= 0.1;
+		gdata->hookmods.z_height -= 0.1;
 	else if (key == 7)
-		fdata->hookmods.z_height += 0.1;
-	if (fdata->hookmods.z_height < 0.1)
-		fdata->hookmods.z_height = 0.1;
-	else if (fdata->hookmods.z_height > 10)
-		fdata->hookmods.z_height = 10;
-	ft_start_draw(fdata);
+		gdata->hookmods.z_height += 0.1;
+	if (gdata->hookmods.z_height < 0.1)
+		gdata->hookmods.z_height = 0.1;
+	else if (gdata->hookmods.z_height > 10)
+		gdata->hookmods.z_height = 10;
+	ft_start_draw(gdata);
 }
 
-void	ft_change_view(int key, t_fdfdata *fdata)
+void	ft_change_view(int key, t_gamedata *gdata)
 {
 	if (key == 35)
 	{
-		fdata->hookmods.x_angle = 0;
-		fdata->hookmods.y_angle = 0;
-		fdata->hookmods.z_angle = 0;
-		if (fdata->hookmods.view)
-			fdata->hookmods.view = 0;
+		gdata->hookmods.x_angle = 0;
+		gdata->hookmods.y_angle = 0;
+		gdata->hookmods.z_angle = 0;
+		if (gdata->hookmods.view)
+			gdata->hookmods.view = 0;
 		else
-			fdata->hookmods.view++;
+			gdata->hookmods.view++;
 	}
-	ft_start_draw(fdata);
+	ft_start_draw(gdata);
 }

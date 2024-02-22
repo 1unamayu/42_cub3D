@@ -24,6 +24,7 @@ typedef struct s_color
     int g;
     int b;
 } t_color;
+
 typedef struct s_data //the data structure
 {
     char       **map2d; // the map
@@ -38,4 +39,5 @@ typedef struct s_data //the data structure
     t_texture  t_we;
     t_texture  t_ea;
 }   t_data;
+
 #endif

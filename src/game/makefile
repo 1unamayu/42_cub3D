@@ -6,7 +6,7 @@
 #    By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 15:38:08 by javigarc          #+#    #+#              #
-#    Updated: 2024/02/20 21:06:18 by javi             ###   ########.fr        #
+#    Updated: 2024/02/22 15:59:23 by javi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ DARK_BLUE = \033[38;5;57m
 SRC = $(SRC_DIR)/game.c\
 	  $(SRC_DIR)/game_calculus.c\
 	  $(SRC_DIR)/game_color.c\
+	  $(SRC_DIR)/game_draw.c\
 	  $(SRC_DIR)/game_draw.c\
 	  $(SRC_DIR)/game_draw_light.c\
 	  $(SRC_DIR)/game_draw_rotations.c\

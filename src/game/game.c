@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.c                                             :+:      :+:    :+:   */
+/*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:27:03 by javigarc          #+#    #+#             */
-/*   Updated: 2024/02/20 18:39:05 by javi             ###   ########.fr       */
+/*   Updated: 2022/11/30 15:55:12 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,105 +14,102 @@
 
 int	game_main(int argc)
 {
-	t_fdfdata	fdata;
-
-	char	*map;
-
-	map = "src/game/mars.fdf";
-
+	t_gamedata	gdata;
+	char	*mapita = "src/game/pyramide.fdf";
+ft_putstr_fd("\nIN GAME\n\n\n", 1);
 	if (argc == 2)
 	{
 		ft_putstr_fd("\rChecking file...", 1);
-		fdata.map = ft_read_map(map);
+		gdata.map = ft_read_map(mapita);
 		ft_putstr_fd("\rReading map...", 1);
-		fdata.map_name = map;
+		gdata.map_name = mapita;
 		ft_putstr_fd("\rIniciating...", 1);
-		ft_fdfdata_init(&fdata);
-		ft_hookmods_init(&fdata);
-		ft_start_hooks(&fdata);
+		ft_gamedata_init(&gdata);
+		ft_hookmods_init(&gdata);
+		ft_start_hooks(&gdata);
 		ft_putstr_fd("\rCalculating...", 1);
-		ft_start_draw(&fdata);
-		ft_draw_menu(&fdata, map);
-		ft_draw_scale(&fdata);
+		ft_start_draw(&gdata);
+		ft_draw_menu(&gdata, mapita);
+		ft_draw_scale(&gdata);
 		ft_putstr_fd("\r\nDone!", 1);
-		mlx_loop(fdata.mlx);
+		mlx_loop(gdata.mlx);
 	}
 	else
-		ft_putstr_fd("madre mia\n", 1);
+		ft_putstr_fd("Something went wrong\n", 2);
 	return (0);
 }
 
-void	ft_fdfdata_init(t_fdfdata *fdata)
+void	ft_gamedata_init(t_gamedata *gdata)
 {
-	fdata->mlx = mlx_init();
-	fdata->win_size.rowx = 1920;
-	fdata->win_size.coly = 1080;
-	fdata->img_size.rowx = 1600;
-	fdata->img_size.coly = 1080;
-	fdata->win = mlx_new_window(fdata->mlx, fdata->win_size.rowx, \
-			fdata->win_size.coly, "FDF");
-	fdata->img = mlx_new_image(fdata->mlx, fdata->img_size.rowx, \
-			fdata->img_size.coly);
-	fdata->imgadd = mlx_get_data_addr(fdata->img, &fdata->pixel_b, \
-			&fdata->lines_b, &fdata->endian);
-	ft_set_maxmin_hz(fdata, fdata->map.rowscols.rowx, fdata->map.rowscols.coly);
+	gdata->mlx = mlx_init();
+	gdata->win_size.rowx = 1920;
+	gdata->win_size.coly = 1080;
+	gdata->img_size.rowx = 1600;
+	gdata->img_size.coly = 1080;
+	gdata->win = mlx_new_window(gdata->mlx, gdata->win_size.rowx, \
+			gdata->win_size.coly, "FDF");
+	gdata->img = mlx_new_image(gdata->mlx, gdata->img_size.rowx, \
+			gdata->img_size.coly);
+	gdata->imgadd = mlx_get_data_addr(gdata->img, &gdata->pixel_b, \
+			&gdata->lines_b, &gdata->endian);
+	ft_set_maxmin_hz(gdata, gdata->map.rowscols.rowx, gdata->map.rowscols.coly);
 }
 
-void	ft_hookmods_init(t_fdfdata *fdata)
+void	ft_hookmods_init(t_gamedata *gdata)
 {
 	int	escw;
 	int	esch;
 
-	esch = (fdata->img_size.coly / fdata->map.rowscols.coly / 2);
-	escw = (fdata->img_size.rowx / fdata->map.rowscols.rowx / 2);
+	esch = (gdata->img_size.coly / gdata->map.rowscols.coly / 2);
+	escw = (gdata->img_size.rowx / gdata->map.rowscols.rowx / 2);
 	if (esch < escw)
-		fdata->hookmods.scale = esch / 2;
+		gdata->hookmods.scale = esch / 2;
 	else
-		fdata->hookmods.scale = escw / 2;
-	if (fdata->hookmods.scale < 1)
-		fdata->hookmods.scale = 2;
-	fdata->hookmods.angle = 30;
-	fdata->hookmods.xdispl = 0;
-	fdata->hookmods.ydispl = 0;
-	fdata->hookmods.view = 1;
-	fdata->hookmods.x_angle = 0;
-	fdata->hookmods.y_angle = 0;
-	fdata->hookmods.z_angle = 0;
-	fdata->hookmods.z_height = 1;
+		gdata->hookmods.scale = escw / 2;
+	if (gdata->hookmods.scale < 1)
+		gdata->hookmods.scale = 2;
+	gdata->hookmods.angle = 30;
+	gdata->hookmods.xdispl = 0;
+	gdata->hookmods.ydispl = 0;
+	gdata->hookmods.view = 1;
+	gdata->hookmods.x_angle = 0;
+	gdata->hookmods.y_angle = 0;
+	gdata->hookmods.z_angle = 0;
+	gdata->hookmods.z_height = 1;
 }
 
-void	ft_set_maxmin_hz(t_fdfdata *fdata, int rows, int cols)
+void	ft_set_maxmin_hz(t_gamedata *gdata, int rows, int cols)
 {
 	int	x;
 	int	y;
 
-	fdata->max_hz = fdata->map.mapdots[0][0].hz;
-	fdata->min_hz = fdata->max_hz;
+	gdata->max_hz = gdata->map.mapdots[0][0].hz;
+	gdata->min_hz = gdata->max_hz;
 	x = 0;
 	while (x < rows)
 	{
 		y = 0;
 		while (y < cols)
 		{
-			if (fdata->map.mapdots[x][y].hz > fdata->max_hz)
-				fdata->max_hz = fdata->map.mapdots[x][y].hz;
-			if (fdata->map.mapdots[x][y].hz < fdata->min_hz)
-				fdata->min_hz = fdata->map.mapdots[x][y].hz;
+			if (gdata->map.mapdots[x][y].hz > gdata->max_hz)
+				gdata->max_hz = gdata->map.mapdots[x][y].hz;
+			if (gdata->map.mapdots[x][y].hz < gdata->min_hz)
+				gdata->min_hz = gdata->map.mapdots[x][y].hz;
 			y++;
 		}
 		x++;
 	}
 }
 
-void	ft_free_map(t_fdfdata *fdata)
+void	ft_free_map(t_gamedata *gdata)
 {
 	int	x;
 
 	x = 0;
-	while (x < fdata->map.rowscols.rowx)
+	while (x < gdata->map.rowscols.rowx)
 	{
-		free(fdata->map.mapdots[x]);
+		free(gdata->map.mapdots[x]);
 		x++;
 	}
-	free(fdata->map.mapdots);
+	free(gdata->map.mapdots);
 }

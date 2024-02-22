@@ -12,28 +12,28 @@
 
 #include "game.h"
 
-t_coord	ft_cal_pro(t_fdfdata *fdata, int x, int y, int z)
+t_coord	ft_cal_pro(t_gamedata *gdata, int x, int y, int z)
 {
 	t_coord	coord;
 	int		scale;
 
-	scale = fdata->hookmods.scale;
-	coord.color = ft_dot_color(ft_percent(fdata->min_hz, fdata->max_hz, z));
+	scale = gdata->hookmods.scale;
+	coord.color = ft_dot_color(ft_percent(gdata->min_hz, gdata->max_hz, z));
 	x *= scale;
 	y *= scale;
-	z *= scale / fdata->hookmods.z_height;
-	ft_rotate_x_axis(&y, &z, fdata->hookmods.x_angle);
-	ft_rotate_y_axis(&x, &z, fdata->hookmods.y_angle);
-	ft_rotate_z_axis(&x, &y, fdata->hookmods.z_angle);
-	if (fdata->hookmods.view != 0)
-		fdata->hookmods.angle = 30;
+	z *= scale / gdata->hookmods.z_height;
+	ft_rotate_x_axis(&y, &z, gdata->hookmods.x_angle);
+	ft_rotate_y_axis(&x, &z, gdata->hookmods.y_angle);
+	ft_rotate_z_axis(&x, &y, gdata->hookmods.z_angle);
+	if (gdata->hookmods.view != 0)
+		gdata->hookmods.angle = 30;
 	else
-		fdata->hookmods.angle = 15;
-	coord.rowx = (x - y) * -cos(rad(fdata->hookmods.angle));
-	coord.coly = -z + (x + y) * sin(rad(fdata->hookmods.angle));
-	coord.rowx += (fdata->img_size.rowx / 2) + fdata->hookmods.xdispl;
-	coord.coly += ((fdata->img_size.coly - fdata->map.rowscols.coly) / 2)
-		+ fdata->hookmods.ydispl;
+		gdata->hookmods.angle = 15;
+	coord.rowx = (x - y) * -cos(rad(gdata->hookmods.angle));
+	coord.coly = -z + (x + y) * sin(rad(gdata->hookmods.angle));
+	coord.rowx += (gdata->img_size.rowx / 2) + gdata->hookmods.xdispl;
+	coord.coly += ((gdata->img_size.coly - gdata->map.rowscols.coly) / 2)
+		+ gdata->hookmods.ydispl;
 	return (coord);
 }
 

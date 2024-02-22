@@ -14,6 +14,7 @@
 #include "parser.h"
 #include "game_struct.h"
 
+
 t_data* init_data()
 {
    

@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:27:45 by javigarc          #+#    #+#             */
-/*   Updated: 2024/02/20 19:40:24 by javi             ###   ########.fr       */
+/*   Updated: 2024/02/21 16:21:28 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@
 # include "libft.h"
 # include "get_next_line.h"
 # include "../src/minilibx/mlx.h"
+
+# define S_W 1900 // screen width
+# define S_H 1000 // screen height
+# define TILE_SIZE 30 // tile size
+# define FOV 60 // field of view
+# define ROTATION_SPEED 0.045 // rotation speed
+# define PLAYER_SPEED 4	// player speed
 
 typedef struct s_coord
 {
@@ -82,7 +89,12 @@ typedef struct s_mods
 	int		view;
 	float	z_height;
 }			t_mods;
-typedef struct s_fdfdata
+//typedef struct s_player
+//{
+//	t_coord	pos;/* data */
+//};
+
+typedef struct s_gamedata
 {
 	void	*mlx;
 	void	*win;
@@ -98,13 +110,16 @@ typedef struct s_fdfdata
 	t_coord	img_size;
 	int		max_hz;
 	int		min_hz;
-}			t_fdfdata;
+}			t_gamedata;
 
+/// game.c///
 int		game_main(int argc);
-void	ft_fdfdata_init(t_fdfdata *fdata);
-void	ft_hookmods_init(t_fdfdata *fdata);
-void	ft_set_maxmin_hz(t_fdfdata *fdata, int rows, int cols);
-void	ft_free_map(t_fdfdata *fdata);
+//t_data *init_argumet();
+/// game_init.c///
+void	ft_gamedata_init(t_gamedata *gdata);
+void	ft_hookmods_init(t_gamedata *gdata);
+void	ft_set_maxmin_hz(t_gamedata *gdata, int rows, int cols);
+void	ft_free_map(t_gamedata *gdata);
 // Map //
 t_map	ft_read_map(char *namefile);
 t_dot	**ft_load_mapdots(int fd, int rows, int cols);
@@ -112,31 +127,31 @@ int		ft_countcols(const char *str, char c);
 t_coord	ft_rows_cols_check(int fd);
 void	ft_print_map(t_map maptoprint, int rows, int cols);
 // Hooks //
-void	ft_rotate_view(int key, t_fdfdata *fdata);
-void	ft_scale(int key, t_fdfdata *fdata);
-void	ft_axis_displ(int key, t_fdfdata *fdata);
-void	ft_change_view(int key, t_fdfdata *fdata);
-void	ft_change_height(int key, t_fdfdata *fdata);
+void	ft_rotate_view(int key, t_gamedata *gdata);
+void	ft_scale(int key, t_gamedata *gdata);
+void	ft_axis_displ(int key, t_gamedata *gdata);
+void	ft_change_view(int key, t_gamedata *gdata);
+void	ft_change_height(int key, t_gamedata *gdata);
 // Hooks Control //
-int		ft_key_press(int key, t_fdfdata *fdata);
-int		ft_button_close(t_fdfdata *fdata);
+int		ft_key_press(int key, t_gamedata *gdata);
+int		ft_button_close(t_gamedata *gdata);
 // Calculus //
 double	rad(int deg);
-t_coord	ft_cal_pro(t_fdfdata *fdata, int x, int y, int z);
+t_coord	ft_cal_pro(t_gamedata *gdata, int x, int y, int z);
 void	ft_swap(int *a, int *b);
 int		ft_abs(int x);
 // Draw //
-void	ft_start_hooks(t_fdfdata *fdata);
-void	ft_start_draw(t_fdfdata *fdata);
-void	ft_start_line_row(t_fdfdata *fdata);
-void	ft_start_line_col(t_fdfdata *fdata);
-void	ft_draw_line(t_fdfdata *fdata, t_coord begin, t_coord end);
+void	ft_start_hooks(t_gamedata *gdata);
+void	ft_start_draw(t_gamedata *gdata);
+void	ft_start_line_row(t_gamedata *gdata);
+void	ft_start_line_col(t_gamedata *gdata);
+void	ft_draw_line(t_gamedata *gdata, t_coord begin, t_coord end);
 // Draw light //
-void	ft_light_my_pixel(t_fdfdata *fdata, int x, int y, int color);
-void	ft_draw_menu(t_fdfdata *fdata, char *line);
-void	ft_draw_scale(t_fdfdata *fdata);
-void	ft_clear_image(t_fdfdata *fdata, int color_a, int color_b);
-void	ft_light_line(t_fdfdata *fdata, t_coord begin, \
+void	ft_light_my_pixel(t_gamedata *gdata, int x, int y, int color);
+void	ft_draw_menu(t_gamedata *gdata, char *line);
+void	ft_draw_scale(t_gamedata *gdata);
+void	ft_clear_image(t_gamedata *gdata, int color_a, int color_b);
+void	ft_light_line(t_gamedata *gdata, t_coord begin, \
 		t_coord end, t_bnum bnum);
 // Rotations //
 void	ft_rotate_x_axis(int *y, int *z, double x_angle);
