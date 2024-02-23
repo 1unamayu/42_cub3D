@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:27:45 by javigarc          #+#    #+#             */
-/*   Updated: 2024/02/21 16:21:28 by javi             ###   ########.fr       */
+/*   Updated: 2024/02/22 17:38:14 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # include <stdio.h>
 # include "libft.h"
 # include "get_next_line.h"
+# include "game_struct.h"
 # include "../src/minilibx/mlx.h"
 
 # define S_W 1900 // screen width
@@ -89,10 +90,35 @@ typedef struct s_mods
 	int		view;
 	float	z_height;
 }			t_mods;
-//typedef struct s_player
-//{
-//	t_coord	pos;/* data */
-//};
+
+typedef struct	s_gamecoord
+{	
+	double	x;
+	double	y;
+}				t_gamecoord;
+
+typedef struct	s_gamestate
+{
+	t_gamecoord	pos; 
+	t_gamecoord	dir;
+	t_gamecoord	camplane; 
+	double		time;    
+    double		oldtime;
+}				t_gamestate;
+
+typedef struct	s_raysdt
+{
+	t_gamecoord ray;
+  t_gamecoord map;
+  t_gamecoord raylento; ////length of ray from current position to next x or y-side
+  t_gamecoord raylenfromto; /// //length of ray from one x or y-side to next x or y-side
+  t_gamecoord step;
+  int         wallhit;
+  int         side;
+  double      camerax;
+  double      perpWallDist;
+	/* data */
+}				t_raysdt;
 
 typedef struct s_gamedata
 {
@@ -104,10 +130,11 @@ typedef struct s_gamedata
 	int		lines_b;
 	int		endian;
 	char	*map_name;
-	t_map	map;
+	t_data	map;
 	t_mods	hookmods;
 	t_coord	win_size;
 	t_coord	img_size;
+	t_gamestate	level;
 	int		max_hz;
 	int		min_hz;
 }			t_gamedata;
