@@ -33,6 +33,7 @@ void	ft_start_draw(t_gamedata *gdata)
 	end.y = gdata->img_size.y;
 	ft_putstr_fd("\ndibujando elsuelo ahora..", 1);
 	ft_light_rect(gdata, start, end, cc_argb(gdata->map->c_floor));
+	raycasting(gdata);
 	//ft_start_line_row(gdata);
 	//ft_start_line_col(gdata);
 	mlx_put_image_to_window(gdata->mlx, gdata->win, gdata->img, 0, 0);

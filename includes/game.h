@@ -157,8 +157,8 @@ int	close_game(t_gamedata *gdata);
 //void	ft_print_map(t_map maptoprint, int rows, int cols);
 // Raycasting //
 void	init_player(t_gamedata *gdata);
-void		raydimension(t_raysdt *ray, t_gamedata *gdata);
-int				raycasting(t_gamedata *gdata);
+void	raydimension(t_raysdt *ray, t_gamedata *gdata);
+void	raycasting(t_gamedata *gdata);
 //t_coord raycasting(t_gamedata *gdata);
 // Hooks //
 //void	ft_rotate_view(int key, t_gamedata *gdata);

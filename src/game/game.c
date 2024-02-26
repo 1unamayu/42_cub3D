@@ -42,8 +42,7 @@ ft_putstr_fd("\nIN GAME\n\n\n", 1);
 		ft_putnbr_fd(gdata.map->c_floor.g,1);
 		ft_putchar_fd('-',1);
 		ft_putnbr_fd(gdata.map->c_floor.b,1);
-		if (raycasting(&gdata))
-			ft_putstr_fd("\n ALGO MAL RAYCASTING", 2);
+		//raycasting(&gdata);
 		mlx_loop(gdata.mlx);
 		close_game(gdata.mlx);
 	return (0);

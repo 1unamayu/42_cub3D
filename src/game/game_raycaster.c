@@ -91,29 +91,34 @@ static void		init_values(t_raysdt *ray, t_gamedata *gdata)
 	ray->wallhit = 0;
 }
 
-int				raycasting(t_gamedata *gdata)
+void  raycasting(t_gamedata *gdata)
 {
 	t_raysdt	*ray;
   
   ray = ft_calloc(1, sizeof (t_raysdt));
+  init_values(ray, gdata);
 	while (ray->pix < gdata->img_size.x)
 		{
-	init_values(ray, gdata);
 	take_a_step(ray, gdata);
-  if (gdata->map->map2d[ray->map.y][ray->map.x] > '0')
+  ft_putstr_fd("\nPIXEL:",1);
+  ft_putnbr_fd(ray->pix, 1);
+  printf("%d, %d --- %d", ray->map.x, ray->map.y, gdata->map->map2d[ray->map.y][ray->map.x]);
+  if (gdata->map->map2d[ray->map.y][ray->map.x] > 0)
   {
 			ray->wallhit = 1;
+      ft_putstr_fd("\ngolpe muro",1);
       wall_side(ray);
       raydimension(ray, gdata);
+      ft_putstr_fd("\nlinea",1);
       ft_light_rayline(gdata, ray, 8355712);
   }
 	
 	gdata->imgadd[ray->pix] = ray->walldist;
 	//Añadir texturas
-  ray->pix++;;
+  ray->pix++;
     }
-	mlx_put_image_to_window(gdata->mlx, gdata->win, gdata->img, 0, 0);
-	return (0);
+    ft_putstr_fd("\n A pintar", 1);
+	//mlx_put_image_to_window(gdata->mlx, gdata->win, gdata->img, 0, 0);
 }
 
 void		raydimension(t_raysdt *ray, t_gamedata *gdata)
