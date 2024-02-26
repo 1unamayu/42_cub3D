@@ -23,7 +23,7 @@ t_data* init_data()
 	data = ft_calloc(1, sizeof(t_data));
 	data->map2d = ft_calloc(10, sizeof(char *)); // init the map
 	data->map2d[0] = strdup("1111111111111111111111111"); //fill the map
-	data->map2d[1] = strdup("1000000000000000000100001");
+	data->map2d[1] = strdup("1E00000000000000000100001");
 	data->map2d[2] = strdup("1001000000000N00000000001");
 	data->map2d[3] = strdup("1001000000000000001000001");
 	data->map2d[4] = strdup("1001000000000000001000001");
@@ -33,16 +33,16 @@ t_data* init_data()
 	data->map2d[8] = strdup("1111111111111111111111111");
 	data->map2d[9] = NULL;
 
-	data->c_celing.r = 250;
-	data->c_celing.g = 0;
-	data->c_celing.b = 127;
+	data->c_celing.r = 40;
+	data->c_celing.g = 50;
+	data->c_celing.b = 227;
 
-	data->c_floor.r = 250;
-	data->c_floor.g = 0;
-	data->c_floor.b = 127;
+	data->c_floor.r = 240;
+	data->c_floor.g = 28;
+	data->c_floor.b = 28;
 
-	data->p_x = 100;
-	data->p_x = 200;
+	data->p_x = 1;
+	data->p_y = 2;
 
 	data->w_map = 1920;
 	data->h_map = 1080;
@@ -73,11 +73,9 @@ int	main(int argn, char *argv[])
 			//game = ft_parse_map(argv[1]);
 			printf("%d\n", game->c_celing.b);
 			printf("%s\n", game->t_no.texture_path);
-			// start_the_game(game);
+			start_the_game(game, argv[1]);
 		}
 	}
 	printf("FUERA");
-	game_main(2);
-	game_main(23);
 	exit(0);
 }

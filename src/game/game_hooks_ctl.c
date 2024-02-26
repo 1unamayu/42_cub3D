@@ -16,10 +16,11 @@ int	ft_key_press(int key, t_gamedata *gdata)
 {
 	if (key == 53)
 	{
-		ft_free_map(gdata);
-		ft_putstr_fd("\rTerminating.\nOK.", 1);
+		//ft_free_map(gdata);
+		ft_putstr_fd("\r\nTerminating.\nOK.", 1);
+		close_game(gdata);
 		exit(0);
-	}
+	}/*
 	if (key == 69 || key == 24 || key == 78 || key == 27)
 		ft_scale(key, gdata);
 	else if (key == 123 || key == 124
@@ -30,14 +31,14 @@ int	ft_key_press(int key, t_gamedata *gdata)
 	else if (key == 6 || key == 7)
 		ft_change_height(key, gdata);
 	else if (key == 35)
-		ft_change_view(key, gdata);
+		ft_change_view(key, gdata);*/
 	return (0);
 }
 
 int	ft_button_close(t_gamedata *gdata)
 {
-	ft_free_map(gdata);
+	//ft_free_map(gdata);
 	ft_putstr_fd("\rProgram terminated successfully", 1);
-	exit(0);
-	return (0);
+	close_game(gdata);
+	exit (0);
 }

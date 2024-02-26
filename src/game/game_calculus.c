@@ -32,7 +32,7 @@ t_coord	ft_cal_pro(t_gamedata *gdata, int x, int y, int z)
 	coord.rowx = (x - y) * -cos(rad(gdata->hookmods.angle));
 	coord.coly = -z + (x + y) * sin(rad(gdata->hookmods.angle));
 	coord.rowx += (gdata->img_size.rowx / 2) + gdata->hookmods.xdispl;
-	coord.coly += ((gdata->img_size.coly - gdata->map.rowscols.coly) / 2)
+	coord.coly += ((gdata->img_size.coly - gdata->map->w_map) / 2)
 		+ gdata->hookmods.ydispl;
 	return (coord);
 }

@@ -33,111 +33,10 @@ void  init_player(t_gamedata *gdata)
   gdata->player.pos.y = gdata->map->p_y;
 }
 
-static void	wall_side(t_raysdt *ray)
-{
-	if (ray->sidedist.x < ray->sidedist.y)
-	{
-		ray->sidedist.x += ray->delta.x;
-		ray->map.x += ray->step.x;
-		if (ray->step.x == 1)
-			ray->side = 0;
-		else if (ray->step.x == -1)
-			ray->side = 1;
-	}
-	else
-	{
-		ray->sidedist.y += ray->delta.y;
-		ray->map.y += ray->step.y;
-		if (ray->step.y == 1)
-			ray->side = 2;
-		else if (ray->step.y == -1)
-			ray->side = 3;
-	}
-}
-
-static void		take_a_step(t_raysdt *ray, t_gamedata *gdata)
-{
-	if (ray->dir.x < 0)
-	{
-		ray->step.x = -1;
-		ray->sidedist.x = (gdata->player.pos.x - ray->map.x) * ray->delta.x;
-	}
-	else
-	{
-		ray->step.x = 1;
-		ray->sidedist.x = (ray->map.x + 1.0 - gdata->player.pos.x) * ray->delta.x;
-	}
-	if (ray->dir.y < 0)
-	{
-		ray->step.y = -1;
-		ray->sidedist.y = (gdata->player.pos.y - ray->map.y) * ray->delta.y;
-	}
-	else
-	{
-		ray->step.y = 1;
-		ray->sidedist.y = (ray->map.y + 1.0 - gdata->player.pos.y) * ray->delta.y;
-	}
-}
-
-static void		init_values(t_raysdt *ray, t_gamedata *gdata)
-{
-	ray->camerax = (2 * ray->pix) / (double)gdata->win_size.x - 1;
-	ray->dir.x = gdata->player.dir.x + gdata->player.plane.x * ray->camerax;
-	ray->dir.y = gdata->player.dir.y + gdata->player.plane.y * ray->camerax;
-	ray->map.x = (int)gdata->player.pos.x;
-	ray->map.y = (int)gdata->player.pos.y;
-	ray->delta.x = fabs(1 / ray->dir.x);
-	ray->delta.y = fabs(1 / ray->dir.y);
-	ray->wallhit = 0;
-}
-
-int				raycasting(t_gamedata *gdata)
-{
-	t_raysdt	*ray;
-  
-  ray = ft_calloc(1, sizeof (t_raysdt));
-	while (ray->pix < gdata->img_size.x)
-		{
-	init_values(ray, gdata);
-	take_a_step(ray, gdata);
-  if (gdata->map->map2d[ray->map.y][ray->map.x] > '0')
-  {
-			ray->wallhit = 1;
-      wall_side(ray);
-      raydimension(ray, gdata);
-      ft_light_rayline(gdata, ray, 8355712);
-  }
-	
-	gdata->imgadd[ray->pix] = ray->walldist;
-	//Añadir texturas
-  ray->pix++;;
-    }
-	mlx_put_image_to_window(gdata->mlx, gdata->win, gdata->img, 0, 0);
-	return (0);
-}
-
-void		raydimension(t_raysdt *ray, t_gamedata *gdata)
-{
-	if (ray->side == 0 || ray->side == 1)
-		ray->walldist = (ray->map.x - gdata->player.pos.x + (1 - ray->step.x) / 2)
-		/ ray->dir.x;
-	else
-		ray->walldist = (ray->map.y - gdata->player.pos.y + (1 - ray->step.y) / 2)
-		/ ray->dir.y;
-	ray->wallheight = (int)(gdata->img_size.y / ray->walldist);
-	ray->start = (-ray->wallheight / 2 + (gdata->img_size.y / 2));
-	if (ray->start < 0)
-		ray->start = 0;
-	ray->end = (ray->wallheight / 2 + (gdata->img_size.y / 2));
-	if (ray->end >= gdata->img_size.y)
-		ray->end = gdata->img_size.y - 1;
-}
-
-/*
 // Función para calcular el raycasting
 void  calculateRay(t_gamedata *gdata)
 {
-    t_raysdtsdt  ry;
+    t_raysdt  ry;
     int       i;
     
     i = 0;
@@ -201,14 +100,14 @@ if (ry.dir.y < 0) {
     }
   }
 }
-*/
+
 
 /////////////////////// ANTIGUO , INTENTO DESDE EL LOVCE //////////////////////////* 
 /*
 t_gamecoord raycasting(t_gamedata *gdata)
 {
 
-  t_raysdtsdt  r;
+  t_raysdt  r;
   t_gamecoord rray;
 
    r.camplane.x = 0;

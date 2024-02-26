@@ -12,7 +12,7 @@
 
 #include "game.h"
 
-void	ft_scale(int key, t_gamedata *gdata)
+/*void	ft_scale(int key, t_gamedata *gdata)
 {
 	if (key == 69 || key == 24 || key == 4)
 	{
@@ -24,8 +24,8 @@ void	ft_scale(int key, t_gamedata *gdata)
 		gdata->hookmods.scale = 1;
 	ft_start_draw(gdata);
 }
-
-void	ft_axis_displ(int key, t_gamedata *gdata)
+*/
+/*void	ft_axis_displ(int key, t_gamedata *gdata)
 {
 	if (key == 123)
 		gdata->hookmods.xdispl -= 10;
@@ -82,3 +82,4 @@ void	ft_change_view(int key, t_gamedata *gdata)
 	}
 	ft_start_draw(gdata);
 }
+*/

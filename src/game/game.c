@@ -12,56 +12,75 @@
 
 #include "game.h"
 
-int	game_main(int argc)
+int	start_the_game(t_data *valmap, char *level)
 {
 	t_gamedata	gdata;
-	char	*mapita = "src/game/pyramide.fdf";
+	
 ft_putstr_fd("\nIN GAME\n\n\n", 1);
-	if (argc == 2)
-	{
-		ft_putstr_fd("\rChecking file...", 1);
-		gdata.map = ft_read_map(mapita);
-		ft_putstr_fd("\rReading map...", 1);
-		gdata.map_name = mapita;
-		ft_putstr_fd("\rIniciating...", 1);
+
+		ft_putstr_fd("\rLoading map...", 1);
+		gdata.map = valmap;
+		gdata.map_name = level;
+		ft_putstr_fd("\rLaunching.....", 1);
 		ft_gamedata_init(&gdata);
-		ft_hookmods_init(&gdata);
+	//	ft_hookmods_init(&gdata);
 		ft_start_hooks(&gdata);
-		ft_putstr_fd("\rCalculating...", 1);
+		ft_putstr_fd("\rRuning............", 1);
 		ft_start_draw(&gdata);
-		ft_draw_menu(&gdata, mapita);
-		ft_draw_scale(&gdata);
-		ft_putstr_fd("\r\nDone!", 1);
+		ft_draw_menu(&gdata, level);
+//		ft_draw_scale(&gdata);
+//		ft_putstr_fd("\r\nDone!", 1);
+		ft_putstr_fd("\n colores:", 1);
+		ft_putnbr_fd(gdata.map->c_celing.r,1);
+		ft_putchar_fd('-',1);
+		ft_putnbr_fd(gdata.map->c_celing.g,1);
+		ft_putchar_fd('-',1);
+		ft_putnbr_fd(gdata.map->c_celing.b,1);
+		ft_putstr_fd("\n floor",1);
+		ft_putnbr_fd(gdata.map->c_floor.r,1);
+		ft_putchar_fd('-',1);
+		ft_putnbr_fd(gdata.map->c_floor.g,1);
+		ft_putchar_fd('-',1);
+		ft_putnbr_fd(gdata.map->c_floor.b,1);
+		if (raycasting(&gdata))
+			ft_putstr_fd("\n ALGO MAL RAYCASTING", 2);
 		mlx_loop(gdata.mlx);
-	}
-	else
-		ft_putstr_fd("Something went wrong\n", 2);
+		close_game(gdata.mlx);
 	return (0);
 }
 
 void	ft_gamedata_init(t_gamedata *gdata)
 {
+	//t_dot	maxscreen;
+
 	gdata->mlx = mlx_init();
-	gdata->win_size.rowx = 1920;
-	gdata->win_size.coly = 1080;
-	gdata->img_size.rowx = 1600;
-	gdata->img_size.coly = 1080;
-	gdata->win = mlx_new_window(gdata->mlx, gdata->win_size.rowx, \
-			gdata->win_size.coly, "FDF");
-	gdata->img = mlx_new_image(gdata->mlx, gdata->img_size.rowx, \
-			gdata->img_size.coly);
+	//mlx_get_screen_size(gdata->mlx, &maxscreen.x, &maxscreen.y); // comprobar si con otra minilibx que aparezca este prototipo
+	/*gdata->win_size.x = maxscreen.x - 100;
+	gdata->win_size.y = maxscreen.y - 50;
+	gdata->img_size.x = gdata->win_size.x - 100;
+	gdata->img_size.y = gdata->win_size.y;
+	*/
+	init_player(gdata);
+	gdata->win_size.x = 1200;
+	gdata->win_size.y = 700;
+	gdata->img_size.x = gdata->win_size.x;
+	gdata->img_size.y = gdata->win_size.y;
+	gdata->win = mlx_new_window(gdata->mlx, gdata->win_size.x, \
+			gdata->win_size.y, "[*]----:*:-^-[CUB3D]-^-:*:----[*]");
+	gdata->img = mlx_new_image(gdata->mlx, gdata->img_size.x, \
+			gdata->img_size.y);
 	gdata->imgadd = mlx_get_data_addr(gdata->img, &gdata->pixel_b, \
 			&gdata->lines_b, &gdata->endian);
-	ft_set_maxmin_hz(gdata, gdata->map.rowscols.rowx, gdata->map.rowscols.coly);
+	//ft_set_maxmin_hz(gdata, gdata->map->h_map, gdata->map->w_map);
 }
 
-void	ft_hookmods_init(t_gamedata *gdata)
+/*void	ft_hookmods_init(t_gamedata *gdata)
 {
 	int	escw;
 	int	esch;
 
-	esch = (gdata->img_size.coly / gdata->map.rowscols.coly / 2);
-	escw = (gdata->img_size.rowx / gdata->map.rowscols.rowx / 2);
+	esch = (gdata->img_size.y / gdata->map->w_map / 2);
+	escw = (gdata->img_size.x / gdata->map->h_map / 2);
 	if (esch < escw)
 		gdata->hookmods.scale = esch / 2;
 	else
@@ -77,13 +96,13 @@ void	ft_hookmods_init(t_gamedata *gdata)
 	gdata->hookmods.z_angle = 0;
 	gdata->hookmods.z_height = 1;
 }
-
-void	ft_set_maxmin_hz(t_gamedata *gdata, int rows, int cols)
+*/
+/*void	ft_set_maxmin_hz(t_gamedata *gdata, int rows, int cols)
 {
 	int	x;
 	int	y;
 
-	gdata->max_hz = gdata->map.mapdots[0][0].hz;
+	gdata->max_hz = gdata->map->mapdots[0][0].hz;
 	gdata->min_hz = gdata->max_hz;
 	x = 0;
 	while (x < rows)
@@ -91,25 +110,31 @@ void	ft_set_maxmin_hz(t_gamedata *gdata, int rows, int cols)
 		y = 0;
 		while (y < cols)
 		{
-			if (gdata->map.mapdots[x][y].hz > gdata->max_hz)
-				gdata->max_hz = gdata->map.mapdots[x][y].hz;
-			if (gdata->map.mapdots[x][y].hz < gdata->min_hz)
-				gdata->min_hz = gdata->map.mapdots[x][y].hz;
+			if (gdata->map->mapdots[x][y].hz > gdata->max_hz)
+				gdata->max_hz = gdata->map->mapdots[x][y].hz;
+			if (gdata->map->mapdots[x][y].hz < gdata->min_hz)
+				gdata->min_hz = gdata->map->mapdots[x][y].hz;
 			y++;
 		}
 		x++;
 	}
 }
-
-void	ft_free_map(t_gamedata *gdata)
+*/
+/*void	ft_free_map(t_gamedata *gdata)
 {
 	int	x;
 
 	x = 0;
-	while (x < gdata->map.rowscols.rowx)
+	while (x < gdata->map->rowscols.x)
 	{
-		free(gdata->map.mapdots[x]);
+		free(gdata->map->mapdots[x]);
 		x++;
 	}
-	free(gdata->map.mapdots);
+	free(gdata->map->mapdots);
+}*/
+int	close_game(t_gamedata *gdata)
+{
+	mlx_destroy_image(gdata->mlx, gdata->img);
+	mlx_destroy_window(gdata->mlx, gdata->win);
+	return (0);
 }

@@ -32,15 +32,24 @@ DARK_BLUE = \033[38;5;57m
 
 # Source files
 SRC = $(SRC_DIR)/game.c\
-	  $(SRC_DIR)/game_calculus.c\
-	  $(SRC_DIR)/game_color.c\
-	  $(SRC_DIR)/game_draw.c\
+	  $(SRC_DIR)/game_hooks_ctl.c\
 	  $(SRC_DIR)/game_draw.c\
 	  $(SRC_DIR)/game_draw_light.c\
-	  $(SRC_DIR)/game_draw_rotations.c\
-	  $(SRC_DIR)/game_hooks.c\
-	  $(SRC_DIR)/game_hooks_ctl.c\
-	  $(SRC_DIR)/game_map.c\
+	  $(SRC_DIR)/game_raycaster.c\
+	  #$(SRC_DIR)/game_calculus.c\
+	  #$(SRC_DIR)/game_color.c\
+	  #$(SRC_DIR)/game_draw.c\
+	  #$(SRC_DIR)/game_draw.c\
+	  #$(SRC_DIR)/game_draw_rotations.c\
+	  #$(SRC_DIR)/game_hooks.c\
+	  #$(SRC_DIR)/game_raycaster.c\
+	  #$(SRC_DIR)/game_map.c\
+	  #$(SRC_DIR)/game_map.c\
+	  #$(SRC_DIR)/game_map.c\
+	  #$(SRC_DIR)/game_map.c\
+	  #$(SRC_DIR)/game_map.c\
+	  #$(SRC_DIR)/game_map.c\
+
 
 OBJ = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC))
 CC = gcc
