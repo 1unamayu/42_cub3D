@@ -6,7 +6,7 @@
 /*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:55:43 by xamayuel          #+#    #+#             */
-/*   Updated: 2024/02/19 14:37:05 by xamayuel         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:08:36 by xamayuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,9 @@ int	ft_is_valid_file_extension(const char *filename, const char *extension);
 char *ft_str_remove_newline(char *str);
 int ft_line_all_spaces(const char *line);
 int ft_show_error(const char *error_text);
+#endif
+
+int		ft_is_valid_input_file(char *arguments[]);
+void	ft_show_logo(void);
+void	ft_print(t_data data);
 #endif

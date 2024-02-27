@@ -1,7 +1,6 @@
 textures/nopermission.xpm
-.objs/*.*
-cube3d
+*.o
+*.a
+./cube3d
+./cub3d
 cub3d
-libraries/*.*
-
-

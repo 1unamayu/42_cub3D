@@ -6,7 +6,7 @@
 /*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 11:38:58 by xamayuel          #+#    #+#             */
-/*   Updated: 2024/02/19 11:54:53 by xamayuel         ###   ########.fr       */
+/*   Updated: 2024/02/21 13:30:03 by xamayuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,19 @@ int	ft_is_valid_texture_line(const char *direction, const char *line)
 	data = ft_split(line, ' ');
 	if (ft_2d_array_size(data) != 2)
 	{
-		free(data);
+		ft_free_split(data);
 		return (ft_show_error("To many arguments in line"));
 	}
 	if (ft_strncmp(data[0], direction, 2) != 0 || ft_strlen(data[0]) != 2)
 	{
-		free(data);
-		return (ft_show_error("Texture direction error."));
+		ft_free_split(data);
+		return (FALSE);
 	}
 	if (ft_is_valid_filename(ft_str_remove_newline(data[1])) == FALSE)
 	{
-		free(data);
-		return (ft_show_error("Texture filename error."));
+		ft_free_split(data);
+		return (FALSE);
 	}
-	free(data);
+	ft_free_split(data);
 	return (TRUE);
 }

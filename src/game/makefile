@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+         #
+#    By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 15:38:08 by javigarc          #+#    #+#              #
-#    Updated: 2024/02/22 15:59:23 by javi             ###   ########.fr        #
+#    Updated: 2024/02/27 11:25:45 by xamayuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,10 +32,13 @@ DARK_BLUE = \033[38;5;57m
 
 # Source files
 SRC = $(SRC_DIR)/game.c\
-	  $(SRC_DIR)/game_hooks_ctl.c\
-	  $(SRC_DIR)/game_draw.c\
-	  $(SRC_DIR)/game_draw_light.c\
-	  $(SRC_DIR)/game_raycaster.c\
+	$(SRC_DIR)/ft_start_hooks.c\
+	$(SRC_DIR)/ft_show_menu.c\
+	$(SRC_DIR)/ft_start_draw.c\
+	$(SRC_DIR)/ft_color_argb.c\
+	$(SRC_DIR)/ft_raycasting.c\
+	 # $(SRC_DIR)/game_draw_light.c\
+	 # $(SRC_DIR)/game_raycaster.c\
 	  #$(SRC_DIR)/game_calculus.c\
 	  #$(SRC_DIR)/game_color.c\
 	  #$(SRC_DIR)/game_draw.c\

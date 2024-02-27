@@ -1,7 +1,8 @@
-NO textures/barrel.xpm
-SO textures/barrel.xpm
-WE textures/barrel.xpm
-EA textures/barrel.xpm
+SO textures/other.xpm
+
+NO textures/other.xpm
+EA textures/no.xpm
+WE textures/north.xpm
 F 255,0,0
 C 0,0,255
 

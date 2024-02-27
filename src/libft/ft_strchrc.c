@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strchrc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 19:54:32 by xamayuel          #+#    #+#             */
-/*   Updated: 2024/02/13 21:44:32 by javigarc         ###   ########.fr       */
+/*   Updated: 2024/02/20 11:33:44 by xamayuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * 		Counts numbers of ocurrences.
  * 
  * RETURN:
- * 		Returns tthe total.
+ * 		Returns the total.
  * 
  * PARAMS:
  * 		@param s: string

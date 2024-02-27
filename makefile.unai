@@ -5,10 +5,11 @@
 #                                                     +:+ +:+         +:+      #
 #    By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/05/06 14:14:12 by xamayuel          #+#    #+#              #
-#    Updated: 2024/02/15 15:12:07 by javigarc         ###   ########.fr        #
+#    Created: 2024/02/17 14:24:44 by xamayuel          #+#    #+#              #
+#    Updated: 2024/02/26 19:34:44 by xamayuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 # ************************ STRUCTURE ***************************************** #
 # - .objs --> folder with object files
@@ -16,20 +17,21 @@
 # - libraries --> folder with library files *.a
 # - includes --> folder with *.h files
 # **************************************************************************** #
-NAME = minishell
+NAME = cub3d
 SRC_DIR = src
 OBJ_DIR = .objs
 LIBRARIES_DIR = libraries
 LIBFT_DIR = src/libft
-LEXER_DIR = src/lexer
+MAP_DIR = src/map
+GNL_DIR = src/gnl
 PARSER_DIR = src/parser
-EXPANSER_DIR = src/expanser
-EXECUTER_DIR = src/executer
-LEXER = $(LIBRARIES_DIR)/lexer.a
+GAME_DIR = src/game
 LIBFT = $(LIBRARIES_DIR)/libft.a
+MAP = $(LIBRARIES_DIR)/map.a
+GNL = $(LIBRARIES_DIR)/gnl.a
 PARSER = $(LIBRARIES_DIR)/parser.a
-EXPANSER = $(LIBRARIES_DIR)/expanser.a
-EXECUTER = $(LIBRARIES_DIR)/executer.a
+GAME = $(LIBRARIES_DIR)/game.a
+MINILIBX = $(LIBRARIES_DIR)/libmlx.a
 # ------------- COLORS 
 # https://talyian.github.io/ansicolors/
 RESET			= 	\033[0m
@@ -43,29 +45,25 @@ LIGHT_PINK      =   \033[38;5;200m
 BLUE			= 	\033[38;5;39m
 DARK_BLUE		=   \033[38;5;57m
 # -----------------SRC
-SRC =	$(SRC_DIR)/minishell_main.c \
-		$(SRC_DIR)/minishell_signals.c \
-		$(SRC_DIR)/minishell_prompt.c \
-		$(SRC_DIR)/minishell_lexer_and_parser.c \
-		$(SRC_DIR)/minishell_shell_init.c
-	
-SRC2 = $(SRC_DIR)/open.c
+SRC =	$(SRC_DIR)/main.c \
+		$(SRC_DIR)/ft_is_valid_input_file.c \
+		$(SRC_DIR)/ft_show_logo.c \
+		$(SRC_DIR)/ft_print_data.c
+
 OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
 
 CC = gcc
 
 HEAD = -I./includes \
 	   -I./$(LIBFT_DIR) \
-	   -I /Users/javigarc/.brew/opt/readline/include \
-	   -I /Users/$(USER)/.brew/opt/readline/include
 
 CFLAGS = -Wall -Werror -Wextra #-g -fsanitize=address
 LFLAGS = -L . $(LIBFT) \
-		 -L . $(LEXER) \
+		 -L . $(GNL) \
+		 -L . $(MAP)\
 		 -L . $(PARSER) \
-		 -L . $(EXPANSER) \
-		 -L . $(EXECUTER) \
-		 -lreadline -L /Users/$(USER)/.brew/opt/readline/lib #-lft
+		 -L . $(GAME) \
+		 -L . $(MINILIBX) -lXext -lX11 -lm
 
 # Address sanitizing flags
 ASAN := -fsanitize=address -fsanitize-recover=address
@@ -80,17 +78,26 @@ TSAN := -fsanitize=thread
 # Memory sanitizing flags
 MSAN := -fsanitize=memory -fsanitize-memory-track-origins
 RM = /bin/rm -rf
-
+MV = /bin/mv
 all: $(NAME)
-bonus: all
 
-$(NAME): $(OBJ) libraries libft lexer expanser parser executer
+minilibx:
+	@if [ "$(shell uname)" = "Linux" ]; then \
+		echo "Generando para Linux..."; \
+		make -C minilibx_linux/; \
+	else \
+		make -C minilibx_opengl/; \
+	fi
+	$(MV) minilibx_linux/libmlx.a libraries/
+	
+
+$(NAME): $(OBJ) libraries minilibx libft gnl map parser game
 		
 		$(CC) $(OBJ) $(HEAD) $(CFLAGS) $(LFLAGS)  -o $(NAME)
 		#$(CC) $(OBJ) $(HEAD) $(CFLAGS) $(LFLAGS) $(ASAN) -o $(NAME)
 		clear
 		@echo "$(LIGHT_PINK)╔════════════════════════════════════╗"
-		@echo "$(LIGHT_PINK)║  ${PINK} 😊🐰 MINISHELL COMPLETE  🐰😊    ║"
+		@echo "$(LIGHT_PINK)║${PINK} 🎮🎮🎮🐶 CUBE3D COMPLETE 🐶🎮🎮🎮  ║"
 		@echo "$(LIGHT_PINK)╚════════════════════════════════════╝ $(RESET)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -104,20 +111,21 @@ libraries:
 	mkdir -p libraries
 libft:
 		@make -C $(LIBFT_DIR)
-		
-lexer:
-		@make -C $(LEXER_DIR)
 
+map:
+		@make -C $(MAP_DIR)
+gnl:
+		@make -C $(GNL_DIR)	
 parser:
-		@make -C $(PARSER_DIR)
+		@make -C $(PARSER_DIR)	
 
-expanser:
-		@make -C $(EXPANSER_DIR)
-
-executer:
-		@make -C $(EXECUTER_DIR)
+game:
+		@make -C $(GAME_DIR)	
 clean:
+		@$(RM) libraries/*.a
 		@$(RM) $(OBJ_DIR)
+		@$(RM) -rf minilibx_linux/obj
+		@$(RM) -rf minilibx_opengl/obj
 		sleep .1
 		clear
 
@@ -132,17 +140,10 @@ fclean: clean
 
 re: fclean all
 
-.PONY: all clean fclean re debug_mac debug_linux
-
-manual:
-	open https://cdn.intra.42.fr/pdf/pdf/35831/es.subject.pdf
+.PONY: all clean fclean re 
 
 installation: 
 		@echo "$(BLUE)╔════════════════════════════════════╗"
 		@echo "$(BLUE)║ ${DARK_BLUE} 🗑️  INSTALLATION COMPLETE 🗑️ ${BLUE}       ║"
 		@echo "$(BLUE)╚════════════════════════════════════╝ $(RESET)"
-brew:
-	curl -fsSL https://raw.githubusercontent.com/docgloucester/42homebrew_sgoinfre/master/install.sh | zsh
 
-readline:
-	brew install readline

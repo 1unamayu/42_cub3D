@@ -6,7 +6,7 @@
 /*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 20:39:09 by xamayuel          #+#    #+#             */
-/*   Updated: 2024/02/19 13:48:25 by xamayuel         ###   ########.fr       */
+/*   Updated: 2024/02/21 14:03:22 by xamayuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ int	ft_count_files(const char *filename)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
+		free(line);
 		line = get_next_line(fd);
 		pos++;
 	}
 	close(fd);
-	free(line);
 	return (pos - 1);
 }
 

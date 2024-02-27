@@ -15,7 +15,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
-# include "MLX/MLX42.h" // include the mlx library
+# include "mlx.h" // include the mlx library
 
 # define S_W 1900 // screen width
 # define S_H 1000 // screen height

@@ -6,7 +6,7 @@
 /*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 16:06:34 by xamayuel          #+#    #+#             */
-/*   Updated: 2024/02/19 13:47:19 by xamayuel         ###   ########.fr       */
+/*   Updated: 2024/02/21 23:12:50 by xamayuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,28 +64,32 @@ static int	ft_check_lines(const char *filename, int nlines)
 	pos = 1;
 	line = get_next_line(fd);
 	count = 0;
-	while (line != NULL)
+	while (line)
 	{
-		if (ft_line_all_spaces(line) == FALSE)
+		if (!ft_line_all_spaces(line) && \
+			ft_is_valid_line(pos++, line, nlines) == FALSE)
 		{
-			if (ft_is_valid_line(pos++, line, nlines) == FALSE)
+			close(fd);
+			free(line);
+			return (FALSE);
+		}
+		if (pos > 7)
+		{
+			if (ft_line_all_spaces(line))
 			{
 				close(fd);
 				free(line);
-				return (FALSE);
+				return (ft_show_error("Blank line in map section."));
 			}
-			if (pos > 6)
-			{
-				count += ft_count_directions(line, 'N');
-				count += ft_count_directions(line, 'S');
-				count += ft_count_directions(line, 'W');
-				count += ft_count_directions(line, 'E');
-			}
+			count += ft_count_directions(line, 'N');
+			count += ft_count_directions(line, 'S');
+			count += ft_count_directions(line, 'W');
+			count += ft_count_directions(line, 'E');
 		}
+		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
-	free(line);
 	if (count > 1)
 		return (ft_show_error("Too many spawn points."));
 	return (TRUE);

@@ -6,7 +6,7 @@
 #    By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 12:00:15 by xamayuel          #+#    #+#              #
-#    Updated: 2024/02/19 14:09:43 by xamayuel         ###   ########.fr        #
+#    Updated: 2024/02/21 13:29:03 by xamayuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRC =	$(SRC_DIR)/ft_show_error.c \
 		$(SRC_DIR)/ft_is_valid_map_line.c \
 		$(SRC_DIR)/ft_is_valid_line.c \
 		$(SRC_DIR)/ft_is_valid_color_line.c \
-		$(SRC_DIR)/file_utils.c 
+		$(SRC_DIR)/file_utils.c \
+		$(SRC_DIR)/ft_free.c 
 		
 OBJ = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC))
 CC = gcc

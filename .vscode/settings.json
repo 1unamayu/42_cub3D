@@ -1,6 +1,15 @@
 {
     "files.associations": {
-        "game_struct.h": "c",
-        "get_next_line.h": "c"
-    }
+		"numbers": "c",
+		"cube3d.h": "c",
+		"game_struct.h": "c",
+		"random": "c",
+		"parser.h": "c",
+		"system_error": "c",
+		"array": "c",
+		"functional": "c",
+		"tuple": "c",
+		"type_traits": "c",
+		"utility": "c"
+	}
 }

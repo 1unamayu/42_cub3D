@@ -47,7 +47,9 @@ BLUE			= 	\033[38;5;39m
 DARK_BLUE		=   \033[38;5;57m
 # -----------------SRC
 SRC =	$(SRC_DIR)/main.c \
-		$(SRC_DIR)/ft_is_valid_input_file.c
+		$(SRC_DIR)/ft_is_valid_input_file.c \
+		$(SRC_DIR)/ft_show_logo.c \
+		$(SRC_DIR)/ft_print_data.c
 
 OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
 
@@ -77,9 +79,8 @@ TSAN := -fsanitize=thread
 # Memory sanitizing flags
 MSAN := -fsanitize=memory -fsanitize-memory-track-origins
 RM = /bin/rm -rf
-
+MV = /bin/mv
 all: $(NAME)
-bonus: all
 
 $(NAME): $(OBJ) libraries libft gnl game map parser mlx
 		
@@ -97,6 +98,8 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 		@echo "$(GREEN)DONE!$(GREY)"
 		@sleep .2
 
+medium:
+		$(CC) medium.c $(HEAD) $(CFLAGS) $(LFLAGS)  -o medium
 libraries:
 	mkdir -p libraries
 libft:
@@ -113,7 +116,10 @@ game:
 mlx:	
 		@make -C $(MLX_DIR)	
 clean:
+		@$(RM) libraries/*.a
 		@$(RM) $(OBJ_DIR)
+		@$(RM) -rf minilibx_linux/obj
+		@$(RM) -rf minilibx_opengl/obj
 		sleep .1
 		clear
 

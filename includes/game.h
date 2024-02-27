@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
+/*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:27:45 by javigarc          #+#    #+#             */
-/*   Updated: 2024/02/22 17:38:14 by javi             ###   ########.fr       */
+/*   Updated: 2024/02/27 13:41:10 by xamayuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,61 +38,20 @@
 # include "libft.h"
 # include "get_next_line.h"
 # include "game_struct.h"
-# include "../src/minilibx/mlx.h"
+# include "mlx.h"
 
-# define S_W 1900 // screen width
-# define S_H 1000 // screen height
+
+
 # define TILE_SIZE 30 // tile size
 # define FOV 60 // field of view
 # define ROTATION_SPEED 0.045 // rotation speed
 # define PLAYER_SPEED 4	// player speed
 
-/*typedef struct s_coord
-{
-	int	rowx;
-	int	coly;
-	int	color;
-}			t_coord;
-*/typedef struct s_dot
+typedef struct s_dot
 {
 	int	x;
 	int	y;
 }			t_dot;
-/*typedef struct s_map
-{
-	t_dot	**mapdots;
-	t_coord	rowscols;
-}			t_map;
-typedef struct s_maplines
-{
-	char	**lines;
-	char	*line;
-	int		x;
-	int		y;
-	t_dot	**dotstoload;
-}			t_maplines;
-*//*
-typedef struct s_bnum
-{
-	t_coord	delta;
-	t_coord	sign;
-	t_coord	cur;
-	int		error[2];
-}			t_bnum;
-
-typedef struct s_mods
-{
-	int		angle;
-	double	x_angle;
-	double	y_angle;
-	double	z_angle;
-	int		scale;
-	int		xdispl;
-	int		ydispl;
-	int		view;
-	float	z_height;
-}			t_mods;
-++*/
 typedef struct	s_coord
 {	
 	double	x;
@@ -107,22 +66,21 @@ typedef struct s_player
 
 typedef struct	s_raysdt
 {
-	int pix;
-	t_coord	delta;
-	t_coord sidedist;
-	t_coord posray;
-  t_dot map;
-  t_coord step;
-  int stepSize;
-  t_coord	dir;
-  double	camerax;
-  int         wallhit;
-  double      walldist;
-  double 	wallheight;
-  int		side;
-  int		start;
-  int		end;
-	/* data */
+	int 	pix; // Índice del píxel actual en el eje X
+	t_coord	delta; // Distancia que se debe mover en el mapa por cada paso en X o Y
+	t_coord sidedist; // Distancia al próximo lado en X o Y
+	t_coord posray; // Posición actual del rayo
+	t_dot	map; // Coordenadas del mapa en el que se encuentra el rayo
+	t_coord step; // Dirección del paso en X o Y (1 o -1)
+	int 	stepSize; // Tamaño del paso
+	t_coord	dir; // Dirección del rayo
+	double	camerax; // Posición X de la cámara en el espacio de la cámara
+	int		wallhit; // Indica si el rayo ha golpeado una pared
+	double	walldist; // Distancia desde la posición del jugador hasta la pared golpeada
+	double	wallheight; // Altura de la pared golpeada
+	int		side; // Lado de la pared golpeada (Norte, Sur, Este, Oeste)
+	int		start; // Punto de inicio para el dibujo de la pared en la pantalla
+	int		end; // Punto final para el dibujo de la pared en la pantalla
 }				t_raysdt;
 
 typedef struct s_gamedata
@@ -144,57 +102,16 @@ typedef struct s_gamedata
 
 /// game.c///
 int		start_the_game(t_data *validatedmap, char *level);
-void	ft_gamedata_init(t_gamedata *gdata);
-int	close_game(t_gamedata *gdata);
-//void	ft_hookmods_init(t_gamedata *gdata);
-//void	ft_set_maxmin_hz(t_gamedata *gdata, int rows, int cols);
-//void	ft_free_map(t_gamedata *gdata);
-// Map //
-//t_map	ft_read_map(char *namefile);
-//t_dot	**ft_load_mapdots(int fd, int rows, int cols);
-//int		ft_countcols(const char *str, char c);
-//t_coord	ft_rows_cols_check(int fd);
-//void	ft_print_map(t_map maptoprint, int rows, int cols);
-// Raycasting //
-void	init_player(t_gamedata *gdata);
-void	raydimension(t_raysdt *ray, t_gamedata *gdata);
-void	raycasting(t_gamedata *gdata);
-//t_coord raycasting(t_gamedata *gdata);
-// Hooks //
-//void	ft_rotate_view(int key, t_gamedata *gdata);
-//void	ft_scale(int key, t_gamedata *gdata);
-//void	ft_axis_displ(int key, t_gamedata *gdata);
-//void	ft_change_view(int key, t_gamedata *gdata);
-//void	ft_change_height(int key, t_gamedata *gdata);
-// Hooks Control //
-int		ft_key_press(int key, t_gamedata *gdata);
-int		ft_button_close(t_gamedata *gdata);
-// Calculus //
-//double	rad(int deg);
-//t_coord	ft_cal_pro(t_gamedata *gdata, int x, int y, int z);
-//void	ft_swap(int *a, int *b);
-//int		ft_abs(int x);
-// Draw //
+//
 void	ft_start_hooks(t_gamedata *gdata);
+//
+void	ft_show_menu(t_gamedata *gdata, char *line);
+//
 void	ft_start_draw(t_gamedata *gdata);
-//void	ft_start_line_row(t_gamedata *gdata);
-//void	ft_start_line_col(t_gamedata *gdata);
-//void	ft_draw_line(t_gamedata *gdata, t_coord begin, t_coord end);
-// Draw light //
-int 	cc_argb(t_color color);
-void	ft_light_my_pixel(t_gamedata *gdata, int x, int y, int color);
-void	ft_draw_menu(t_gamedata *gdata, char *line);
-void	ft_light_rayline(t_gamedata *gdata, t_raysdt *ray, int color);
-//void	ft_draw_scale(t_gamedata *gdata);
-void	ft_clear_image(t_gamedata *gdata, int color_a, int color_b);
-void	ft_light_rect(t_gamedata *gdata, t_coord begin, t_coord end, int color);
-// Rotations //
-//void	ft_rotate_x_axis(int *y, int *z, double x_angle);
-//void	ft_rotate_y_axis(int *x, int *z, double y_angle);
-//void	ft_rotate_z_axis(int *x, int *y, double z_angle);
-// Color //
-//double	ft_percent(int start, int end, int current);
-//int		ft_get_light(int start, int end, double percentage);
-//int		ft_get_color(t_coord cur, t_coord beg, t_coord end, t_coord del);
-//int		ft_dot_color(double percentage);
+//
+int ft_to_color_argb(t_color color);
+//
+void  ft_raycasting(t_gamedata *gdata);
+//
+void	ft_draw_ray_wall(t_gamedata *gdata, t_raysdt *ray, int color);
 #endif

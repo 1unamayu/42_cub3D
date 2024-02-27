@@ -1,0 +1,2 @@
+Revisar si es necesario comprobar espacio en el mapa con ft_isspace o es suficiente con comprobar ' '.
+

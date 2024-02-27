@@ -6,57 +6,20 @@
 /*   By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:45:06 by xamayuel          #+#    #+#             */
-/*   Updated: 2024/02/20 18:42:11 by javi             ###   ########.fr       */
+/*   Updated: 2024/02/21 22:57:26 by xamayuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 #include "parser.h"
 #include "game_struct.h"
+#include "game.h"
 
-
-t_data* init_data()
-{
-   
-   t_data *data;
-
-	data = ft_calloc(1, sizeof(t_data));
-	data->map2d = ft_calloc(10, sizeof(char *)); // init the map
-	data->map2d[0] = strdup("1111111111111111111111111"); //fill the map
-	data->map2d[1] = strdup("1E00000000000000000100001");
-	data->map2d[2] = strdup("1001000000000N00000000001");
-	data->map2d[3] = strdup("1001000000000000001000001");
-	data->map2d[4] = strdup("1001000000000000001000001");
-	data->map2d[5] = strdup("1001000000100000001000001");
-	data->map2d[6] = strdup("1001000000000000001000001");
-	data->map2d[7] = strdup("1001000000001000001000001");
-	data->map2d[8] = strdup("1111111111111111111111111");
-	data->map2d[9] = NULL;
-
-	data->c_celing.r = 40;
-	data->c_celing.g = 50;
-	data->c_celing.b = 227;
-
-	data->c_floor.r = 240;
-	data->c_floor.g = 28;
-	data->c_floor.b = 28;
-
-	data->p_x = 1;
-	data->p_y = 2;
-
-	data->w_map = 1920;
-	data->h_map = 1080;
-
-	data->t_no.texture_path = ft_strdup("textures/barrel.xpm");
-	data->t_so.texture_path = ft_strdup("textures/barrel.xpm");
-	data->t_we.texture_path = ft_strdup("textures/barrel.xpm");
-	data->t_ea.texture_path = ft_strdup("textures/barrel.xpm");
-	return (data);
-}
 int	main(int argn, char *argv[])
 {
 	t_data	*game;
-	
+
+	ft_show_logo();
 	if (argn != 2)
 	{
 		printf(KRED"Error\n"KWHT"CUBE3D: Incorrect number of arguments."KNRM"\n");
@@ -66,14 +29,16 @@ int	main(int argn, char *argv[])
 	{
 		printf("DENTRO");
 		printf(KBLU"\nLoading %s ...\n",argv[1]);
-		printf(KNRM);
 		if (ft_is_valid_map(argv[1]) == TRUE)
 		{
-			game = init_data();
-			//game = ft_parse_map(argv[1]);
-			printf("%d\n", game->c_celing.b);
-			printf("%s\n", game->t_no.texture_path);
-			start_the_game(game, argv[1]);
+			printf(KGRN"Parsing %s ...\n"KNRM"", argv[1]);
+			game = ft_parse_map(argv[1]);
+			if (game != NULL)
+			{
+				ft_print(*game);
+				start_the_game(game, argv[1]);
+				ft_free_data(game);
+			}
 		}
 	}
 	printf("FUERA");

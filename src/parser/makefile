@@ -6,7 +6,7 @@
 #    By: xamayuel <xamayuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 12:00:15 by xamayuel          #+#    #+#              #
-#    Updated: 2024/02/19 14:15:37 by xamayuel         ###   ########.fr        #
+#    Updated: 2024/02/22 11:19:21 by xamayuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,16 @@ LIGHT_PINK      =   \033[38;5;200m
 BLUE			= 	\033[38;5;39m
 DARK_BLUE		=   \033[38;5;57m
 # -----------------SRC
-SRC =	$(SRC_DIR)/ft_parse_map.c
+SRC =	$(SRC_DIR)/ft_parse_map.c \
+		$(SRC_DIR)/ft_parse_map_color.c\
+		$(SRC_DIR)/ft_parse_map_texture.c \
+		$(SRC_DIR)/ft_parse_map_lines.c \
+		$(SRC_DIR)/ft_count_map_lines.c \
+		$(SRC_DIR)/ft_parse_map_player.c\
+		$(SRC_DIR)/ft_show_parse_error.c \
+		$(SRC_DIR)/ft_free.c\
+		$(SRC_DIR)/ft_is_region_closed.c \
+		$(SRC_DIR)/ft_print_pantalla.c
 		
 OBJ = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC))
 CC = gcc
