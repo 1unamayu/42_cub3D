@@ -118,7 +118,7 @@ void  raycasting(t_gamedata *gdata)
   ray->pix++;
     }
     ft_putstr_fd("\n A pintar", 1);
-	//mlx_put_image_to_window(gdata->mlx, gdata->win, gdata->img, 0, 0);
+	mlx_put_image_to_window(gdata->mlx, gdata->win, gdata->img, 0, 0);
 }
 
 void		raydimension(t_raysdt *ray, t_gamedata *gdata)
